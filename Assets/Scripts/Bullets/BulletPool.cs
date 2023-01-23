@@ -5,24 +5,25 @@ namespace Project.Bullets
 {
     public class BulletPool : MonoBehaviour
     {
-        [SerializeField] private GameObject bulletPrefab;
-        [SerializeField] private int poolSize;
+        [SerializeField] private Bullet bulletPrefab;
+        [SerializeField] private int poolSize = 50;
         private ObjectPool _pool;
         
         private void Start()
         {
-            _pool = new ObjectPool(bulletPrefab, poolSize);
+            _pool = new ObjectPool(bulletPrefab, poolSize, transform);
         }
 
-        public void ActivateBullet()
+        public Bullet GetBullet()
         {
-            _pool.GetFromPool();
+            var bullet = (Bullet)_pool.GetFromPool();
+            bullet.SetOriginPool(this);
+            return bullet;
         }
 
-        public void ReturnBullet(GameObject bullet)
+        public void ReturnBullet(Bullet bullet)
         {
             _pool.ReturnToPool(bullet);
-            
         }
     }
 }

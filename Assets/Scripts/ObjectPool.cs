@@ -5,32 +5,35 @@ namespace Project
 {
     public class ObjectPool
     {
-        private readonly Queue<GameObject> _pool = new Queue<GameObject>();
-        private readonly GameObject _original;
-
-        public ObjectPool(GameObject pooledObject, int length)
+        private readonly Queue<MonoBehaviour> _pool = new Queue<MonoBehaviour>();
+        private readonly MonoBehaviour _original;
+        private readonly Transform _parent;
+        
+        public ObjectPool(MonoBehaviour pooledObject, int length, Transform parent)
         {
             _original = pooledObject;
+            _parent = parent;
             for (int i = 0; i < length; i++)
             {
-                var toPool = Object.Instantiate(_original);
+                var toPool = Object.Instantiate(_original, _parent, true);
                 _pool.Enqueue(toPool);
-                toPool.SetActive(false);
+                toPool.gameObject.SetActive(false);
             }
         }
 
-        public GameObject GetFromPool()
+        public MonoBehaviour GetFromPool()
         {
             if (_pool.Count == 0)
-                return Object.Instantiate(_original);
+                return Object.Instantiate(_original, _parent, true);
             
             var toReturn = _pool.Dequeue();
-            toReturn.SetActive(true);
+            toReturn.gameObject.SetActive(true);
             return toReturn;
         }
 
-        public void ReturnToPool(GameObject toReturn)
+        public void ReturnToPool(MonoBehaviour toReturn)
         {
+            toReturn.gameObject.SetActive(false);
             _pool.Enqueue(toReturn);
         }
         
