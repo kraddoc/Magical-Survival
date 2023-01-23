@@ -7,10 +7,8 @@ namespace Project.Player
     {
         public event Action DashKeyPressed;
 
-        public event Action FireKeyPressed; 
+        public bool FireKey => Input.GetMouseButton(0);
         
-        public event Action FireKeyReleased; 
-
         public Vector2 InputDirection => _inputDirectionRaw.normalized;
         public bool NoMovementInput => InputDirection == Vector2.zero;
         public Vector2 LastValidDirection { get; private set; } = Vector2.right;
@@ -31,11 +29,6 @@ namespace Project.Player
             if (Input.GetKeyDown(KeyCode.Space))
                 DashKeyPressed?.Invoke();
 
-            if (Input.GetMouseButtonDown(0))
-                FireKeyPressed?.Invoke();
-            
-            if (Input.GetMouseButtonUp(0))
-                FireKeyReleased?.Invoke();
         }
     }
 }

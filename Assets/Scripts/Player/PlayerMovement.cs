@@ -8,15 +8,15 @@ namespace Project.Player
         #region Inspector Fields
 
         [Header("References")]
-        [SerializeField] private InputHandler _input;
+        [SerializeField] private InputHandler input;
         [Header("Movement")]
-        [SerializeField] private float _speed = 100f;
-        [SerializeField] private float _accelerationFactor = 5f;
-        [SerializeField] private float _decelerationFactor = 10f;
-        [SerializeField] private float _directionSmoothFactor = 0.02f;
+        [SerializeField] private float speed = 100f;
+        [SerializeField] private float accelerationFactor = 5f;
+        [SerializeField] private float decelerationFactor = 10f;
+        [SerializeField] private float directionSmoothFactor = 0.02f;
         [Header("Dash")] 
-        [SerializeField] private float _dashSpeed = 500f;
-        [SerializeField] private float _dashTotalTime = 0.2f;
+        [SerializeField] private float dashSpeed = 500f;
+        [SerializeField] private float dashTotalTime = 0.2f;
 
         #endregion
 
@@ -29,7 +29,7 @@ namespace Project.Player
         private Vector2 _movementDirection = Vector2.zero;
         
         //direction smoothing stuff
-        private bool AlmostStopped => _currentSpeed / _speed > StopPercentage;
+        private bool AlmostStopped => _currentSpeed / speed > StopPercentage;
         private const float StopPercentage = 0.1f; //percentage of speed at which player is considered to stopped
         private Vector2 _directionSmoothingVelocity = Vector2.zero;
         
@@ -49,12 +49,12 @@ namespace Project.Player
 
         private void OnEnable()
         {
-            _input.DashKeyPressed += DashInputCaught;
+            input.DashKeyPressed += DashInputCaught;
         }
 
         private void OnDisable()
         {
-            _input.DashKeyPressed -= DashInputCaught;
+            input.DashKeyPressed -= DashInputCaught;
         }
 
 
@@ -67,25 +67,25 @@ namespace Project.Player
             {
                 _dashTimer += Time.deltaTime;
                 _movementDirection = _dashDirection;
-                _currentSpeed = _dashSpeed;
-                if (_dashTimer >= _dashTotalTime) _isDashing = false;
+                _currentSpeed = dashSpeed;
+                if (_dashTimer >= dashTotalTime) _isDashing = false;
                 else return;
             }
             //DASH CODE END
             
             _accelerationTimer = Mathf.Clamp01(_accelerationTimer);
 
-            if (_input.NoMovementInput)
-                _accelerationTimer -= Time.deltaTime * _decelerationFactor;
+            if (input.NoMovementInput)
+                _accelerationTimer -= Time.deltaTime * decelerationFactor;
             else
-                _accelerationTimer += Time.deltaTime * _accelerationFactor;
+                _accelerationTimer += Time.deltaTime * accelerationFactor;
 
-            _currentSpeed = Mathf.Lerp(0, _speed, _accelerationTimer);
+            _currentSpeed = Mathf.Lerp(0, speed, _accelerationTimer);
 
             //if almost stopped movement no need to smooth direction
             _movementDirection = AlmostStopped ? 
-                SmoothDirection(_input.LastValidDirection, _movementDirection).normalized :
-                _input.LastValidDirection;
+                SmoothDirection(input.LastValidDirection, _movementDirection).normalized :
+                input.LastValidDirection;
         }
 
         private void FixedUpdate()
@@ -99,7 +99,7 @@ namespace Project.Player
             //if suddenly changed direction to opposite no need for smoothing
             return inputDirection + currentDirection == Vector2.zero ? 
                 inputDirection : 
-                Vector2.SmoothDamp(currentDirection, inputDirection, ref _directionSmoothingVelocity, _directionSmoothFactor);
+                Vector2.SmoothDamp(currentDirection, inputDirection, ref _directionSmoothingVelocity, directionSmoothFactor);
         }
 
         private void DashInputCaught()
@@ -107,7 +107,7 @@ namespace Project.Player
             if (_isDashing) return;
             
             _isDashing = true;
-            _dashDirection = _input.LastValidDirection;
+            _dashDirection = input.LastValidDirection;
             _dashTimer = 0f;
             _accelerationTimer = 1f;
         }

@@ -6,7 +6,7 @@ namespace Project.Bullets
     [RequireComponent(typeof(Rigidbody2D))]
     public class BulletMovement : MonoBehaviour
     {
-        [SerializeField] private float _speed = 500f;
+        [SerializeField] private float speed = 500f;
         private Rigidbody2D _rigidbody;
 
         private void Start()
@@ -16,7 +16,7 @@ namespace Project.Bullets
 
         private void FixedUpdate()
         {
-            _rigidbody.velocity = transform.right * (_speed * Time.fixedDeltaTime);
+            _rigidbody.velocity = transform.right * (speed * Time.fixedDeltaTime);
         }
 
         private void OnCollisionEnter2D(Collision2D col)

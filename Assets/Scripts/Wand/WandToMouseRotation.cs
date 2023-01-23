@@ -5,7 +5,7 @@ namespace Project.Wand
 {
     public class WandToMouseRotation : MonoBehaviour
     {
-        [SerializeField] private float _smoothTime = 0.1f;
+        [SerializeField] private float smoothTime = 0.1f;
         private Camera _camera;
         private Vector2 _mousePosition;
         private Transform _transform;
@@ -22,7 +22,7 @@ namespace Project.Wand
 
         private void Update()
         {
-            _direction = Vector2.SmoothDamp(_direction, (MousePosition - (Vector2) _transform.position).normalized, ref _velocity, _smoothTime);
+            _direction = Vector2.SmoothDamp(_direction, (MousePosition - (Vector2) _transform.position).normalized, ref _velocity, smoothTime);
             _transform.right = _direction;
         }
         
