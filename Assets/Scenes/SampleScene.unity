@@ -606,11 +606,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 1241582004}
-  speed: 100
+  speed: 360
   accelerationFactor: 5
   decelerationFactor: 10
   directionSmoothFactor: 0.02
-  dashSpeed: 500
+  dashSpeed: 700
   dashTotalTime: 0.2
 --- !u!58 &1241582007
 CircleCollider2D:
@@ -731,7 +731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: -4126862868083658813, guid: 618b8984c22dad34392e807bdd139774, type: 3}
-  poolSize: 50
+  poolSize: 5
 --- !u!4 &1415173341
 Transform:
   m_ObjectHideFlags: 0

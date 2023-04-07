@@ -25,7 +25,7 @@ namespace Project
         {
             if (_pool.Count == 0)
                 return Object.Instantiate(_original, _parent, true);
-            
+
             var toReturn = _pool.Dequeue();
             toReturn.gameObject.SetActive(true);
             return toReturn;

@@ -1,11 +1,10 @@
-﻿using System;
-using Project.Bullets;
+﻿using Project.Bullets;
 using Project.Player;
 using UnityEngine;
 
-namespace Project.Wand
+namespace Project.Weapons
 {
-    public class WandFire : MonoBehaviour
+    public class WeaponFire : MonoBehaviour
     {
         [SerializeField] private InputHandler input;
         [SerializeField] private BulletPool pool;

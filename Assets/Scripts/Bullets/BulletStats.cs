@@ -10,5 +10,6 @@ namespace Project.Bullets
 
         public int GetDamage => damage;
         public float GetSpeed => speed;
+        
     }
 }
