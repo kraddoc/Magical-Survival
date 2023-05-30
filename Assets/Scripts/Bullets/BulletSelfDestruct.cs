@@ -6,9 +6,8 @@ namespace Project.Bullets
     [RequireComponent(typeof(Bullet))]
     public class BulletSelfDestruct : MonoBehaviour
     {
-        [SerializeField] private float maxLifetime = 2.0f;
+        [SerializeField] private float maxLifetime = 4.0f;
         private Bullet _bullet;
-        private float _lifetime = 0f;
 
         private void Start()
         {
@@ -17,14 +16,7 @@ namespace Project.Bullets
 
         private void OnEnable()
         {
-            _lifetime = 0;
-        }
-
-        private void Update()
-        {
-            _lifetime += Time.deltaTime;
-            if (_lifetime >= maxLifetime)
-                SelfDestruct();
+            Invoke(nameof(SelfDestruct), maxLifetime);
         }
 
         private void SelfDestruct()

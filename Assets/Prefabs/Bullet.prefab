@@ -193,6 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 000553471cdc42a6ac86a96452296cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: 9e4f7cd12ea69f941864a8a827a160c4, type: 2}
 --- !u!114 &-4492082837456059086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,4 +206,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45192ebff9b74c9eb39be457a3556b8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLifetime: 2
+  maxLifetime: 4

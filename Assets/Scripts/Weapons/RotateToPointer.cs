@@ -1,9 +1,8 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Project.Wand
+namespace Project.Weapons
 {
-    public class WandToMouseRotation : MonoBehaviour
+    public class RotateToPointer : MonoBehaviour
     {
         [SerializeField] private float smoothTime = 0.1f;
         private Camera _camera;
