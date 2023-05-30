@@ -251,6 +251,7 @@ GameObject:
   m_Component:
   - component: {fileID: 583573489}
   - component: {fileID: 583573491}
+  - component: {fileID: 583573492}
   m_Layer: 0
   m_Name: Wand
   m_TagString: Untagged
@@ -291,6 +292,19 @@ MonoBehaviour:
   pool: {fileID: 1415173340}
   muzzle: {fileID: 810661968}
   shotCooldown: 0.2
+--- !u!114 &583573492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583573488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0c83d5455084700967bf5d912a96c3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smoothTime: 0.1
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
