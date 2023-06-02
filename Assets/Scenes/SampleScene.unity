@@ -606,12 +606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 1241582004}
-  speed: 360
-  accelerationFactor: 5
-  decelerationFactor: 10
-  directionSmoothFactor: 0.02
-  dashSpeed: 700
-  dashTotalTime: 0.2
+  stats: {fileID: 11400000, guid: 280e372dcab19fa4694de9b9235865e4, type: 2}
 --- !u!58 &1241582007
 CircleCollider2D:
   m_ObjectHideFlags: 0
