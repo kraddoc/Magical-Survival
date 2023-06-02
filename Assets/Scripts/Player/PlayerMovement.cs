@@ -9,14 +9,7 @@ namespace Project.Player
 
         [Header("References")]
         [SerializeField] private InputHandler input;
-        [Header("Movement")]
-        [SerializeField] private float speed = 100f;
-        [SerializeField] private float accelerationFactor = 5f;
-        [SerializeField] private float decelerationFactor = 10f;
-        [SerializeField] private float directionSmoothFactor = 0.02f;
-        [Header("Dash")] 
-        [SerializeField] private float dashSpeed = 500f;
-        [SerializeField] private float dashTotalTime = 0.2f;
+        [SerializeField] private MovementStats stats;
 
         #endregion
 
@@ -29,7 +22,7 @@ namespace Project.Player
         private Vector2 _movementDirection = Vector2.zero;
         
         //direction smoothing stuff
-        private bool AlmostStopped => _currentSpeed / speed > StopPercentage;
+        private bool AlmostStopped => _currentSpeed / stats.Speed > StopPercentage;
         private const float StopPercentage = 0.1f; //percentage of speed at which player is considered to stopped
         private Vector2 _directionSmoothingVelocity = Vector2.zero;
         
@@ -67,8 +60,8 @@ namespace Project.Player
             {
                 _dashTimer += Time.deltaTime;
                 _movementDirection = _dashDirection;
-                _currentSpeed = dashSpeed;
-                if (_dashTimer >= dashTotalTime) _isDashing = false;
+                _currentSpeed = stats.DashSpeed;
+                if (_dashTimer >= stats.DashTotalTime) _isDashing = false;
                 else return;
             }
             //DASH CODE END
@@ -76,11 +69,11 @@ namespace Project.Player
             _accelerationTimer = Mathf.Clamp01(_accelerationTimer);
 
             if (input.NoMovementInput)
-                _accelerationTimer -= Time.deltaTime * decelerationFactor;
+                _accelerationTimer -= Time.deltaTime * stats.DecelerationFactor;
             else
-                _accelerationTimer += Time.deltaTime * accelerationFactor;
+                _accelerationTimer += Time.deltaTime * stats.AccelerationFactor;
 
-            _currentSpeed = Mathf.Lerp(0, speed, _accelerationTimer);
+            _currentSpeed = Mathf.Lerp(0, stats.Speed, _accelerationTimer);
 
             //if almost stopped movement no need to smooth direction
             _movementDirection = AlmostStopped ? 
@@ -99,7 +92,7 @@ namespace Project.Player
             //if suddenly changed direction to opposite no need for smoothing
             return inputDirection + currentDirection == Vector2.zero ? 
                 inputDirection : 
-                Vector2.SmoothDamp(currentDirection, inputDirection, ref _directionSmoothingVelocity, directionSmoothFactor);
+                Vector2.SmoothDamp(currentDirection, inputDirection, ref _directionSmoothingVelocity, stats.DirectionSmoothFactor);
         }
 
         private void DashInputCaught()
