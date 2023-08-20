@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a7088ed49d4411daf453bab5dec35cb, type: 3}
   m_Name: Basic Player Movement Stats
   m_EditorClassIdentifier: 
-  speed: 100
-  accelerationFactor: 5
+  speed: 250
+  accelerationFactor: 15
   decelerationFactor: 10
-  directionSmoothFactor: 0.02
-  dashSpeed: 500
+  directionSmoothFactor: 0.005
+  dashSpeed: 600
   dashTotalTime: 0.2

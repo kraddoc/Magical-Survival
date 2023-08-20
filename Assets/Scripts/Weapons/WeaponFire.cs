@@ -1,4 +1,5 @@
-﻿using Project.Bullets;
+﻿using System.Collections;
+using Project.Bullets;
 using Project.Player;
 using UnityEngine;
 
@@ -11,26 +12,30 @@ namespace Project.Weapons
         [SerializeField] private GameObject muzzle;
 
         [Header("Wand stats.")] [SerializeField] private float shotCooldown = 0.2f;
-        private float _currentCooldown = 0f;
-        private bool CanShoot => shotCooldown <= _currentCooldown;
+        private bool _canShoot = true;
         
         private void Update()
         {
-            _currentCooldown += Time.deltaTime;
-            _currentCooldown = Mathf.Clamp(_currentCooldown, 0, shotCooldown);
+            if (!input.FireKey || !_canShoot) return;
             
-            if (input.FireKey && CanShoot)
-            {
-                Fire();
-                _currentCooldown -= shotCooldown;
-            }
+            Fire();
+            StartCoroutine(Cooldown());
         }
 
         private void Fire()
         {
-            var bullet = pool.GetBullet();
-            bullet.transform.rotation = muzzle.transform.rotation;
-            bullet.transform.position = muzzle.transform.position;
+            var bullet = pool.GetBullet().transform;
+            bullet.rotation = muzzle.transform.rotation;
+            bullet.position = muzzle.transform.position;
+        }
+
+        private IEnumerator Cooldown()
+        {
+            _canShoot = false;
+
+            yield return new WaitForSeconds(shotCooldown);
+
+            _canShoot = true;
         }
     }
 }
